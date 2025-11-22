@@ -11,7 +11,7 @@
   body { 
     font-family: Arial; 
     padding: 20px; 
-    background: linear-gradient(180deg, rgba(194, 16, 182, 1) 0%, rgba(13, 13, 13, 1) 36%);
+    background: linear-gradient(180deg, rgb(16, 114, 194) 0%, rgba(13, 13, 13, 1) 36%);
     height: 100vh;
     overflow: hidden;
   }
@@ -33,7 +33,7 @@ input:-webkit-autofill:active {
   font-size: 16px; 
   outline: none;
   background-color: #0f0f0fbb; 
-  border: 1px solid #c210b6;
+  border: 1px solid rgb(16, 114, 194);
   backdrop-filter: blur(50px);
   color: #e0e0e0; 
   resize: none;
@@ -114,12 +114,13 @@ h1 {
   position: fixed;
   display: none;
   top: 15px;
-  right: 15px;
+  right: 20px;
   color: #fff;
-  background-color: #9c2a95;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(80px);
-  padding: 10px 14px;
+  font-weight: 600;
+  background: #ffffff07;
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  padding: 15px 20px;
   border-radius: 10px;
 }
 
@@ -241,7 +242,7 @@ header button:hover {
   height: 2rem;
   margin-top: 12px;
   cursor: pointer;
-  background-color: #ff4ff0;
+  background-color: #4fa1ff;
   border: none;
   color: #fff;
   border-radius: 8px;
@@ -250,7 +251,7 @@ header button:hover {
 }
 
 .bottom-bar button:hover {
-  background-color: #777777;
+  background-color: #5b73ff;
 }
 
 .images {
@@ -363,7 +364,7 @@ header button:hover {
 .full-screen{
   position: fixed;
   border: none !important;
-  background: linear-gradient(180deg,rgba(48, 4, 45, 1) 0%, rgba(0, 0, 0, 1) 40%) !important;
+  background: linear-gradient(180deg,rgb(3, 21, 36) 0%, rgba(0, 0, 0, 1) 40%) !important;
   backdrop-filter: blur(20px) !important;
   top: 0;
   left: 0;
@@ -514,6 +515,7 @@ header button:hover {
     <span id="modalClose">&times;</span>
     <img id="modalImg" src="" alt="Imagem grande">
   </div>
+
   <script>
         const inputPath = document.querySelector("#inputPath")
         const btnSearchNote = document.querySelector('#btnSearchNote')
