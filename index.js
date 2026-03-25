@@ -68,8 +68,7 @@ async function sendToTelegram(noteId) {
       },
       body: JSON.stringify({
         chat_id: chatId,
-        text: `Criaram uma nota nova: \n${link}`,
-        parse_mode: 'Markdown'
+        text: `Criaram uma nota nova: \n${link}`
       })
     });
 
