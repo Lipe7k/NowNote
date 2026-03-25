@@ -126,6 +126,7 @@
 </head>
 <body>
   <div class="main">
+
     <div class="texts">
       <h1>Now Note!</h1>
       <h4>Compartilhe textos e imagens online</h4>
@@ -158,6 +159,9 @@
       const pageRoute = document.querySelector("#route-page")
       if(pageRoute.value.trim()) window.location.href = `/${pageRoute.value}`
     }
+
+    const recentNotes = localStorage.getItem("recentNotes") || false
+
   </script>
 </body>
 </html>

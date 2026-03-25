@@ -1,4 +1,4 @@
-import express from "express";
+import express, { text } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import multer from "multer";
@@ -48,9 +48,46 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
+async function sendToTelegram(noteId) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_BOT_CHAT_ID;
+
+  if (!token || !chatId) {
+    console.error("Erro: Variáveis de ambiente do Telegram não configuradas.");
+    return;
+  }
+
+  const link = `https://nownote.vercel.app/${noteId}`;
+  const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: `Criaram uma nota nova: \n${link}`,
+        parse_mode: 'Markdown'
+      })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Erro na API do Telegram: ${errorData.description}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Falha ao enviar mensagem para o Telegram:", error.message);
+  }
+}
+
 app.get("/", (req, res) => {
   res.render("home")
 });
+
 
 
 app.get("/:path", async (req, res) => {
@@ -61,6 +98,7 @@ app.get("/:path", async (req, res) => {
     if (!note) {
       note = new Note({ path, content: "", images: [] });
       await note.save();
+      await sendToTelegram(path)
     }
 
     res.render("note", { note });
@@ -84,9 +122,15 @@ app.post("/:path", upload.array("images", 5), async (req, res) => {
 
   if (!note) {
     note = new Note({ path, content, images: newImages });
+
+    await note.save();
+
+    await sendToTelegram(path);
   } else {
     note.content = content;
     note.images = [...(note.images || []), ...newImages];
+
+    await note.save();
   }
 
   await note.save();
